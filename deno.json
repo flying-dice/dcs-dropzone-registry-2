@@ -1,0 +1,18 @@
+{
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1",
+    "mongoose": "npm:mongoose@^8.11.0"
+  },
+  "deploy": {
+    "project": "58fb03b2-a33e-4b88-8fb2-bff97231f510",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "src\\main.ts"
+  }
+}
