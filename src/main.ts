@@ -1,21 +1,11 @@
-import * as mongoose from "mongoose";
-import { ModData } from "./schema.ts";
+import "./api/auth.ts";
+import "./api/user-mods.ts";
+import "./api/mods.ts";
+import { app } from "./app.ts";
 
-const MONGO_URI = Deno.env.get("MONGO_URI");
-
-if (!MONGO_URI) {
-  throw new Error("MONGO_URI is required");
-}
-
-await mongoose.connect(MONGO_URI);
-console.log("MongoDB Connected");
-
-Deno.serve(async (request) => {
-  if (request.method === "GET") {
-    const mods = await ModData.find().exec();
-
-    return Response.json(mods);
-  }
-
-  return Response.error();
+app.doc("/v3/api-docs", {
+  openapi: "3.0.3",
+  info: { title: "DCS Dropzone Registry", description: "DCS Dropzone Registry API", version: "1.0.0" },
 });
+
+Deno.serve(app.fetch);
