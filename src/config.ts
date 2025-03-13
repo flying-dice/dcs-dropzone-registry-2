@@ -14,6 +14,7 @@ const configSchema = z.object({
   trustedClientToken: z.string().optional().describe(
     "The token used to authenticate the trusted client, this is used to protect the origin server from unauthorized access and ensure all requests are coming through the Cloudflare network or a trusted client",
   ),
+  cloudflareZoneId: z.string().describe("The Cloudflare zone ID"),
 });
 
 export const config = configSchema.parse({
@@ -27,5 +28,6 @@ export const config = configSchema.parse({
   ghClientSecret: Deno.env.get("GH_CLIENT_SECRET"),
   enableCloudflareIpWhitelist: Deno.env.get("ENABLE_CF_IP_WHITELIST") === "true",
   cloudflareApiToken: Deno.env.get("CF_API_TOKEN"),
+  cloudflareZoneId: Deno.env.get("CF_ZONE_ID"),
   trustedClientToken: Deno.env.get("TRUSTED_CLIENT_TOKEN"),
 });
