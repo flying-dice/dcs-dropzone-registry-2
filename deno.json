@@ -1,7 +1,8 @@
 {
   "nodeModulesDir": "auto",
   "tasks": {
-    "dev": "deno run --env-file --allow-all --watch src/main.ts"
+    "dev": "deno run --env-file --allow-all --watch src/main.ts",
+    "test": "deno test --env-file --allow-all"
   },
   "fmt": {
     "lineWidth": 120
@@ -11,7 +12,10 @@
     "@hono/zod-openapi": "npm:@hono/zod-openapi@^0.19.0",
     "@std/assert": "jsr:@std/assert@1",
     "@std/expect": "jsr:@std/expect@^1.0.13",
+    "@std/testing": "jsr:@std/testing@^1.0.9",
+    "cloudflare": "npm:cloudflare@^4.1.0",
     "hono": "npm:hono@^4.7.2",
+    "ip-range-check": "npm:ip-range-check@^0.2.0",
     "jose": "npm:jose@^6.0.8",
     "mongodb": "npm:mongodb@^6.14.0",
     "octokit": "npm:octokit@^4.1.2",

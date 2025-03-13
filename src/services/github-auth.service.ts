@@ -1,5 +1,5 @@
 import { OAuthApp, Octokit } from "octokit";
-import { jwtVerify, SignJWT } from "jose";
+import { SignJWT } from "jose";
 import { config } from "../config.ts";
 import { AuthService, UserData, userDataSchema } from "./auth.service.ts";
 

@@ -1,12 +1,25 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { HTTPException } from "hono/http-exception";
 import { createModSchema, Mod, modSchema, modSummarySchema } from "../schemas.ts";
-import { app, getAuthenticatedUserFromRequest, jsonContent } from "../app.ts";
+import { app } from "../app.ts";
 import { HTTP_STATUS_NOT_FOUND, HTTP_STATUS_OK, HTTP_STATUS_UNAUTHORIZED } from "../constants.ts";
 import { modsCollection } from "../database.ts";
 import { config } from "../config.ts";
+import { jsonContent } from "../utils/jsonContent.ts";
+import { getAuthenticatedUserFromRequest } from "../utils/getAuthenticatedUserFromRequest.ts";
 
 const params = z.object({ id: z.string().openapi({ param: { name: "id", in: "path" }, example: "hot-loader" }) });
+
+app.openAPIRegistry.registerComponent("securitySchemes", "Bearer", {
+  type: "http",
+  scheme: "bearer",
+});
+
+app.openAPIRegistry.registerComponent("securitySchemes", "ApiKey", {
+  type: "apiKey",
+  in: "header",
+  name: "X-API-Key",
+});
 
 app.openapi(
   createRoute({

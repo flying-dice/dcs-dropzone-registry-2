@@ -9,6 +9,11 @@ const configSchema = z.object({
   ghClientId: z.string().describe("The client id of the GitHub OAuth app"),
   ghClientSecret: z.string().describe("The client secret of the GitHub OAuth app"),
   apiKeys: z.array(z.string()).optional().describe("The list of API keys to use for authentication"),
+  enableCloudflareIpWhitelist: z.boolean().optional().default(false).describe("Enable the Cloudflare IP whitelist"),
+  cloudflareApiToken: z.string().describe("The Cloudflare API token"),
+  trustedClientToken: z.string().optional().describe(
+    "The token used to authenticate the trusted client, this is used to protect the origin server from unauthorized access and ensure all requests are coming through the Cloudflare network or a trusted client",
+  ),
 });
 
 export const config = configSchema.parse({
@@ -20,4 +25,7 @@ export const config = configSchema.parse({
   ghRedirectUri: Deno.env.get("GH_REDIRECT_URI"),
   ghClientId: Deno.env.get("GH_CLIENT_ID"),
   ghClientSecret: Deno.env.get("GH_CLIENT_SECRET"),
+  enableCloudflareIpWhitelist: Deno.env.get("ENABLE_CF_IP_WHITELIST") === "true",
+  cloudflareApiToken: Deno.env.get("CF_API_TOKEN"),
+  trustedClientToken: Deno.env.get("TRUSTED_CLIENT_TOKEN"),
 });

@@ -1,9 +1,10 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { HTTPException } from "hono/http-exception";
-import { app, jsonContent } from "../app.ts";
+import { app } from "../app.ts";
 import { HTTP_STATUS_NOT_FOUND, HTTP_STATUS_OK } from "../constants.ts";
 import { modSchema, modSummarySchema } from "../schemas.ts";
 import { modsCollection } from "../database.ts";
+import { jsonContent } from "../utils/jsonContent.ts";
 
 const params = z.object({ id: z.string().openapi({ param: { name: "id", in: "path" }, example: "hot-loader" }) });
 

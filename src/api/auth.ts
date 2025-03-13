@@ -19,17 +19,6 @@ const params = z.object({
   }),
 });
 
-app.openAPIRegistry.registerComponent("securitySchemes", "Bearer", {
-  type: "http",
-  scheme: "bearer",
-});
-
-app.openAPIRegistry.registerComponent("securitySchemes", "ApiKey", {
-  type: "apiKey",
-  in: "header",
-  name: "X-API-Key",
-});
-
 app.openapi(
   createRoute({
     method: "get",
