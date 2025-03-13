@@ -9,7 +9,7 @@ app.use(logger());
 app.use("/*", cors());
 app.use("/*", trustedClient());
 app.use(
-  "/*",
+  "/mods/*",
   cache({
     cacheName: "dcs-dropzone",
     cacheControl: "public, max-age=86400, s-maxage=86400",
