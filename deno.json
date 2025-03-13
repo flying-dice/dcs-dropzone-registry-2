@@ -1,8 +1,7 @@
 {
   "nodeModulesDir": "auto",
   "tasks": {
-    "dev": "deno run --env-file --allow-all --watch src/main.ts",
-    "test": "deno test --env-file --allow-all"
+    "dev": "deno run --env-file --allow-all --watch src/main.ts"
   },
   "fmt": {
     "lineWidth": 120
