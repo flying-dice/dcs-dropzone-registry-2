@@ -7,6 +7,7 @@ import { modsCollection } from "../database.ts";
 import { config } from "../config.ts";
 import { jsonContent } from "../utils/jsonContent.ts";
 import { getAuthenticatedUserFromRequest } from "../utils/getAuthenticatedUserFromRequest.ts";
+import { purgeCloudflareCache } from "../utils/purgeCloudflareCache.ts";
 
 const params = z.object({ id: z.string().openapi({ param: { name: "id", in: "path" }, example: "hot-loader" }) });
 
@@ -95,8 +96,11 @@ app.openapi(
     await modsCollection.updateOne({ id }, { $set: update });
 
     const mod = await modsCollection.findOne({ id: update.id });
+    const _mod = modSchema.parse(mod);
 
-    return c.json(modSchema.parse(mod));
+    await purgeCloudflareCache(_mod.id);
+
+    return c.json(_mod);
   },
 );
 
