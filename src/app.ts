@@ -12,7 +12,7 @@ app.use(
   "/*",
   cache({
     cacheName: "dcs-dropzone",
-    cacheControl: "max-age=86400",
+    cacheControl: "public, max-age=86400, s-maxage=86400",
     wait: true,
   }),
 );
