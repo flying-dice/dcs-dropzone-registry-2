@@ -9,7 +9,7 @@ export const trustedClient = () =>
   factory.createMiddleware(async (c, next) => {
     const client = c.req.header("x-trusted-client-token");
 
-    if (client !== config.trustedClientToken) {
+    if (config.trustedClientToken && config.trustedClientToken !== client) {
       throw new HTTPException(HTTP_STATUS_UNAUTHORIZED);
     }
 

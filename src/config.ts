@@ -15,6 +15,7 @@ const configSchema = z.object({
     "The token used to authenticate the trusted client, this is used to protect the origin server from unauthorized access and ensure all requests are coming through the Cloudflare network or a trusted client",
   ),
   cloudflareZoneId: z.string().describe("The Cloudflare zone ID"),
+  kvUri: z.string().optional().describe("The URI of the Cloudflare KV"),
 });
 
 export const config = configSchema.parse({
@@ -30,4 +31,5 @@ export const config = configSchema.parse({
   cloudflareApiToken: Deno.env.get("CF_API_TOKEN"),
   cloudflareZoneId: Deno.env.get("CF_ZONE_ID"),
   trustedClientToken: Deno.env.get("TRUSTED_CLIENT_TOKEN"),
+  kvUri: Deno.env.get("KV_URI"),
 });

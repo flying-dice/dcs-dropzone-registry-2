@@ -15,9 +15,11 @@ import { HTTPException } from "hono/http-exception";
 export async function getAuthenticatedUserFromRequest(request: HonoRequest): Promise<UserData> {
   try {
     const token = getBearerToken(request);
+
     const user = await jwtVerify(token, new TextEncoder().encode(config.jwtSecret));
     return userDataSchema.parse(user.payload);
   } catch (_e) {
+    console.error("Failed to get authenticated user from request", _e);
     throw new HTTPException(HTTP_STATUS_UNAUTHORIZED);
   }
 }

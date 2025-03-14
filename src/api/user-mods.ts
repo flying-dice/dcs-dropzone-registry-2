@@ -8,6 +8,7 @@ import { config } from "../config.ts";
 import { jsonContent } from "../utils/jsonContent.ts";
 import { getAuthenticatedUserFromRequest } from "../utils/getAuthenticatedUserFromRequest.ts";
 import { purgeCloudflareCache } from "../utils/purgeCloudflareCache.ts";
+import { kvStore } from "../store.ts";
 
 const params = z.object({ id: z.string().openapi({ param: { name: "id", in: "path" }, example: "hot-loader" }) });
 
@@ -94,6 +95,7 @@ app.openapi(
     await getAuthenticatedUserFromRequest(c.req);
 
     await modsCollection.updateOne({ id }, { $set: update });
+    await kvStore.set(["mod", update.id], update);
 
     const mod = await modsCollection.findOne({ id: update.id });
     const _mod = modSchema.parse(mod);
@@ -137,6 +139,8 @@ app.openapi(
     const _mod: Mod = modSchema.parse(create);
 
     await modsCollection.insertOne(_mod);
+
+    await kvStore.set(["mod", _mod.id], _mod);
 
     const mod = await modsCollection.findOne({ id: _mod.id });
 

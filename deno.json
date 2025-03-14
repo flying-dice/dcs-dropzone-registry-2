@@ -1,7 +1,7 @@
 {
   "nodeModulesDir": "auto",
   "tasks": {
-    "dev": "deno run --env-file --allow-all --watch src/main.ts"
+    "dev": "deno run --env-file --allow-all --unstable-kv --watch src/main.ts"
   },
   "fmt": {
     "lineWidth": 120
